@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Medic</string>
+    <string name="analizes_onboard_gray_text">Экспресс сбор и получение проб</string>
 </resources>
