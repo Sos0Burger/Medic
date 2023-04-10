@@ -14,14 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.medic.R
-import com.example.medic.ui.theme.GrayTextColor
-import com.example.medic.ui.theme.GreenTextColor
-import com.example.medic.ui.theme.MedicTheme
-import com.example.medic.ui.theme.skipButtonColor
+import com.example.medic.ui.theme.*
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -49,11 +48,16 @@ fun OnboardScreen() {
                     }
                 },
                 colors = ButtonDefaults.buttonColors(
-                    containerColor = Color.Transparent,
-                    contentColor = Color.Blue
+                    containerColor = Color.Transparent
                 )
             ) {
-                Text(text = if(pagerState.currentPage == 2) "Завершить" else "Пропустить", fontSize = 20.sp, color = skipButtonColor)
+                Text(
+                    text = if (pagerState.currentPage == 2) "Завершить" else "Пропустить",
+                    fontSize = 20.sp,
+                    fontFamily = lato,
+                    color = skipButtonColor,
+                    fontWeight = FontWeight(600)
+                )
             }
             Column() {
                 Image(
@@ -108,12 +112,18 @@ fun BottomContent(greenText: String, grayText: String, dotPosition: Int, illustr
             text = greenText,
             color = GreenTextColor,
             fontSize = 20.sp,
-            modifier = Modifier.padding(bottom = 30.dp)
+            fontFamily = lato,
+            modifier = Modifier.padding(bottom = 30.dp, top = 50.dp),
+            fontWeight = FontWeight(600)
         )
         Text(
             text = grayText,
             fontSize = 14.sp,
-            color = GrayTextColor
+            color = GrayTextColor,
+            fontFamily = SFPD,
+            textAlign = TextAlign.Center,
+            fontWeight = FontWeight(400)
+
         )
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,
