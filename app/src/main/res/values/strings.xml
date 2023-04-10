@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Medic</string>
     <string name="analizes_onboard_gray_text">Экспресс сбор и получение проб</string>
+    <string name="notification_gray_text">Вы быстро узнаете о результатах</string>
+    <string name="monitoring_gray_text">Наши врачи всегда наблюдают
+        за вашими показателями здоровья</string>
 </resources>

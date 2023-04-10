@@ -1,7 +1,6 @@
-package com.example.medic.onboard
+package com.example.medic.screens
 
 
-import android.util.Log
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -30,19 +29,31 @@ import kotlinx.coroutines.launch
 fun OnboardScreen() {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
-    Column(verticalArrangement = Arrangement.SpaceBetween, horizontalAlignment = Alignment.CenterHorizontally ,modifier = Modifier.fillMaxSize()) {
+    Column(
+        verticalArrangement = Arrangement.SpaceBetween,
+        horizontalAlignment = Alignment.CenterHorizontally,
+        modifier = Modifier.fillMaxSize()
+    ) {
 
-        Row(verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
+        Row(
+            verticalAlignment = Alignment.Top,
+            horizontalArrangement = Arrangement.SpaceBetween,
+            modifier = Modifier.fillMaxWidth()
+        ) {
             Button(
                 onClick = {
-                          coroutineScope.launch { pagerState.scrollToPage(pagerState.currentPage+1) }
+                    if (pagerState.currentPage == 2) {
+                        //todo вот тут типо дальше на экран регистрации
+                    } else {
+                        coroutineScope.launch { pagerState.scrollToPage(pagerState.currentPage + 1) }
+                    }
                 },
                 colors = ButtonDefaults.buttonColors(
                     containerColor = Color.Transparent,
                     contentColor = Color.Blue
                 )
             ) {
-                Text(text = "Пропустить", fontSize = 20.sp, color = skipButtonColor)
+                Text(text = if(pagerState.currentPage == 2) "Завершить" else "Пропустить", fontSize = 20.sp, color = skipButtonColor)
             }
             Column() {
                 Image(
@@ -53,23 +64,52 @@ fun OnboardScreen() {
             }
 
         }
-        HorizontalPager(pageCount = 3, state = pagerState) {
-            page -> when(page){
-                1 -> {Log.d("sgs", page.toString()); BottomContent(greenText = "Анализы", dotPosition = pagerState.currentPage, illustrationId =R.drawable.analizes_illustration )}
+        HorizontalPager(pageCount = 3, state = pagerState) { page ->
+            when (page) {
+                0 -> {
+                    BottomContent(
+                        greenText = "Анализы",
+                        stringResource(id = R.string.analizes_onboard_gray_text),
+                        dotPosition = pagerState.currentPage,
+                        illustrationId = R.drawable.analizes_illustration
+                    )
+                }
+                1 -> {
+                    BottomContent(
+                        greenText = "Уведомления",
+                        grayText = stringResource(R.string.notification_gray_text),
+                        dotPosition = pagerState.currentPage,
+                        illustrationId = R.drawable.notificationillustration
+                    )
+                }
+                2 -> {
+                    BottomContent(
+                        greenText = "Мониторинг",
+                        grayText = stringResource(id = R.string.monitoring_gray_text),
+                        dotPosition = pagerState.currentPage,
+                        illustrationId = R.drawable.monitoringillustration
+                    )
+                }
             }
 
         }
     }
 }
+
 @Composable
-fun BottomContent(greenText: String, dotPosition: Int, illustrationId: Int){
+fun BottomContent(greenText: String, grayText: String, dotPosition: Int, illustrationId: Int) {
     Column(
         verticalArrangement = Arrangement.SpaceBetween,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = greenText, color = GreenTextColor, fontSize = 20.sp, modifier =Modifier.padding(bottom = 30.dp))
         Text(
-            text = stringResource(R.string.analizes_onboard_gray_text),
+            text = greenText,
+            color = GreenTextColor,
+            fontSize = 20.sp,
+            modifier = Modifier.padding(bottom = 30.dp)
+        )
+        Text(
+            text = grayText,
             fontSize = 14.sp,
             color = GrayTextColor
         )
@@ -78,7 +118,7 @@ fun BottomContent(greenText: String, dotPosition: Int, illustrationId: Int){
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(all = 50.dp)
         ) {
-            for (i in 1..3) {
+            for (i in 0..2) {
                 Image(
                     painter = painterResource(id = if (dotPosition == i) R.drawable.filledellipse else R.drawable.emptyellipse),
                     contentDescription = null,
