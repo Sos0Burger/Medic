@@ -115,7 +115,7 @@ fun PasswordScreen() {
                         .size(80.dp)
                         .padding(all = 5.dp)
                 ) {
-                    Image(painter = painterResource(id = R.drawable.deleteicon), contentDescription = null )
+                    Image(painter = painterResource(id = R.drawable.deleteicon), contentDescription = null, modifier = Modifier.size(35.dp) )
                 }
             }
         }
