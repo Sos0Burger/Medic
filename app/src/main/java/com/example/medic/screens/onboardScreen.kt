@@ -64,6 +64,8 @@ fun OnboardScreen() {
             }
 
         }
+
+
         HorizontalPager(pageCount = 3, state = pagerState) { page ->
             when (page) {
                 0 -> {
