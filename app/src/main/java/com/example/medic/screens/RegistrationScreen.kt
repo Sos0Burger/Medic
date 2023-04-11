@@ -1,12 +1,9 @@
 package com.example.medic.screens
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.border
-import androidx.compose.foundation.interaction.InteractionSource
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
-import androidx.compose.material3.TextFieldDefaults.indicatorLine
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -33,7 +30,7 @@ fun RegistrationScreen() {
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Image(
-                    painter = painterResource(id = R.drawable.hello),
+                    painter = painterResource(id = R.drawable.wave),
                     contentDescription = null,
                     modifier = Modifier.size(32.dp)
                 )

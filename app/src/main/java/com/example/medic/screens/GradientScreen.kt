@@ -14,10 +14,10 @@ import com.example.medic.R
 import com.example.medic.ui.theme.Blue
 import com.example.medic.ui.theme.LightBlue
 import com.example.medic.ui.theme.MedicTheme
-import com.example.medic.utils.gradientBackground
+import com.example.medic.ui.theme.gradientBackground
 
 @Composable
-fun SplashScreen() {
+fun GradientScreen() {
     val listColors =
         listOf(
             LightBlue, Blue, LightBlue
@@ -47,7 +47,7 @@ fun SplashScreenPreview() {
         Surface(
             modifier = Modifier.fillMaxSize()
         ) {
-            SplashScreen()
+            GradientScreen()
         }
     }
 }

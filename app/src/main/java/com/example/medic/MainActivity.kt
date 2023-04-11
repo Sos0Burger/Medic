@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.medic.screens.GradientScreen
 import com.example.medic.ui.theme.MedicTheme
 
 class MainActivity : ComponentActivity() {
@@ -20,7 +21,7 @@ class MainActivity : ComponentActivity() {
             MedicTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-
+                    GradientScreen()
                 }
             }
         }
@@ -34,7 +35,7 @@ fun Screen() {
 
 @Preview(showBackground = true)
 @Composable
-fun DefaultPreview() {
+fun ScreenPreview() {
     MedicTheme {
 
     }
