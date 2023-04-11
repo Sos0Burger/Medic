@@ -1,5 +1,6 @@
 package com.example.medic.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -16,6 +17,7 @@ import com.example.medic.AlertUI
 import com.example.medic.R
 import com.example.medic.api.response.SendCodeResponse
 import com.example.medic.api.userApi.UserApiImpl
+import com.example.medic.data.User
 import com.example.medic.ui.theme.BlueMid
 import com.example.medic.ui.theme.BorderColor
 import com.example.medic.ui.theme.SecondaryTextColor
@@ -65,7 +67,7 @@ fun RegistrationScreen(onNavigateToEmailCode: () -> Unit) {
                 value = email, onValueChange = {
                     email = it
                 },
-                isError = !email.matches(Regex("[A-z0-9]+@[a-z]+\\.[a-z]+")),
+                isError = !email.matches(Regex("[A-z0-9]+@[A-z0-9]+\\.[a-z]+")),
                 shape = MaterialTheme.shapes.medium, colors = TextFieldDefaults.textFieldColors(
                     textColor = SecondaryTextColor,
                     disabledTextColor = Color.Transparent,
@@ -76,7 +78,7 @@ fun RegistrationScreen(onNavigateToEmailCode: () -> Unit) {
                     Text("example@example.com", color = SecondaryTextColor)
                 }, modifier = Modifier
                     .fillMaxWidth()
-                    .height(48.dp)
+                    .height(65.dp)
                     .border(1.dp, color = BorderColor, shape = MaterialTheme.shapes.medium)
             )
             Spacer(modifier = Modifier.size(32.dp))
@@ -90,12 +92,25 @@ fun RegistrationScreen(onNavigateToEmailCode: () -> Unit) {
                                 call: Call<SendCodeResponse>,
                                 response: Response<SendCodeResponse>
                             ) {
-                                if(response.code()==200) onNavigateToEmailCode()
+                                if(response.code()==200){
+                                    User.email = email
+                                    onNavigateToEmailCode()
+                                }
+                                if(response.code()==422){
+                                    title.value = "Ошибка 422"
+                                    text.value = response.message().toString()
+                                    openDialog.value = true
+                                }
+                                else{
+                                    Log.d("Error", response.code().toString()+response.message())
+                                }
                             }
 
                             override fun onFailure(call: Call<SendCodeResponse>, t: Throwable) {
                                 title.value = "Ошибка сервера"
                                 text.value = t.toString()
+                                openDialog.value = true
+                                Log.d("Error", t.message.toString())
                             }
 
                         })
@@ -120,7 +135,7 @@ fun RegistrationScreen(onNavigateToEmailCode: () -> Unit) {
             Text(text = "Или войдите с помощью", color = SecondaryTextColor)
             Spacer(modifier = Modifier.size(16.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = { },
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier
                     .fillMaxWidth()

@@ -3,7 +3,6 @@ package com.example.medic
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
@@ -13,10 +12,8 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.example.medic.screens.EmailCodeScreen
-import com.example.medic.screens.GradientScreen
-import com.example.medic.screens.OnboardScreen
-import com.example.medic.screens.RegistrationScreen
+import com.example.medic.data.User
+import com.example.medic.screens.*
 import com.example.medic.ui.theme.MedicTheme
 
 class MainActivity : ComponentActivity() {
@@ -55,7 +52,14 @@ fun Screen() {
                 )
             })
         }
-        composable("EmailCode") { EmailCodeScreen() }
+        composable("EmailCode") {
+            EmailCodeScreen(onNavigateToRegistration = {
+                navController.navigate(
+                    "Registration"
+                )
+            }, onNavigateToPassword = { navController.navigate("Password") })
+        }
+        composable("Password"){ PasswordScreen()}
     }
 
 }
