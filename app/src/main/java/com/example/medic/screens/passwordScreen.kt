@@ -63,7 +63,7 @@ fun PasswordScreen() {
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             var counter = 0
-            for(y in 1..3) {
+            for (y in 1..3) {
                 Row(horizontalArrangement = Arrangement.SpaceBetween) {
                     for (i in 1..3) {
                         counter++
@@ -88,7 +88,18 @@ fun PasswordScreen() {
                 }
             }
 
-            Row(horizontalArrangement = Arrangement.End){
+            Row() {
+                Button(
+                    onClick = {},
+                    shape = CircleShape,
+                    colors = ButtonDefaults.buttonColors(disabledContainerColor = Color.Transparent),
+                    enabled = false,
+                    contentPadding = PaddingValues(0.dp),
+                    modifier = Modifier
+                        .size(80.dp)
+                        .padding(all = 5.dp)
+                ){}
+
                 Button(
                     onClick = { password += 0 },
                     shape = CircleShape,
@@ -107,7 +118,7 @@ fun PasswordScreen() {
                     )
                 }
                 Button(
-                    onClick = { password += 0 },
+                    onClick = { password = password.dropLast(1) },
                     shape = CircleShape,
                     colors = ButtonDefaults.buttonColors(containerColor = PasswordButtonColor),
                     contentPadding = PaddingValues(0.dp),
@@ -115,7 +126,11 @@ fun PasswordScreen() {
                         .size(80.dp)
                         .padding(all = 5.dp)
                 ) {
-                    Image(painter = painterResource(id = R.drawable.deleteicon), contentDescription = null, modifier = Modifier.size(35.dp) )
+                    Image(
+                        painter = painterResource(id = R.drawable.deleteicon),
+                        contentDescription = null,
+                        modifier = Modifier.size(35.dp)
+                    )
                 }
             }
         }
