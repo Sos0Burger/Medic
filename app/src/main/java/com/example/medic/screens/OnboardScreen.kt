@@ -25,7 +25,7 @@ import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun OnboardScreen() {
+fun OnboardScreen(onNavigateToRegistration: () -> Unit) {
     val pagerState = rememberPagerState()
     val coroutineScope = rememberCoroutineScope()
     Column(
@@ -42,7 +42,7 @@ fun OnboardScreen() {
             Button(
                 onClick = {
                     if (pagerState.currentPage == 2) {
-                        //todo вот тут типо дальше на экран регистрации
+                        onNavigateToRegistration()
                     } else {
                         coroutineScope.launch { pagerState.scrollToPage(pagerState.currentPage + 1) }
                     }
@@ -159,7 +159,7 @@ fun PreviewScreen() {
     MedicTheme {
         // A surface container using the 'background' color from the theme
         Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colorScheme.background) {
-            OnboardScreen()
+            OnboardScreen({})
         }
     }
 }
