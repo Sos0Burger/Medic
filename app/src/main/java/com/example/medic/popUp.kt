@@ -17,7 +17,7 @@ import com.example.medic.ui.theme.PasswordButtonColor
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlertUI(title: String, text:String){
-    Card(shape = RoundedCornerShape(10), modifier = Modifier.padding(10.dp, 5.dp, 10.dp, 10.dp).height(250.dp), colors = CardDefaults.cardColors(containerColor = PasswordButtonColor)) {
+    Card(shape = RoundedCornerShape(10), modifier = Modifier.height(200.dp).width(200.dp), colors = CardDefaults.cardColors(containerColor = PasswordButtonColor)) {
         Column(Modifier.padding(top=10.dp, start = 5.dp)) {
             Text(text = title, fontSize = 26.sp, fontWeight = FontWeight(700), modifier = Modifier.padding(bottom = 20.dp))
             Row(verticalAlignment = Alignment.Bottom) {

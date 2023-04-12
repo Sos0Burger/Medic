@@ -14,5 +14,5 @@ interface UserApi {
     fun sendCode(@Header("email") email:String) : Call<SendCodeResponse>
     @Headers("accept: application/json")
     @POST("api/signin")
-    fun signIn(@Header("email") email:String,@Header("code") code:String) : Call<SignInResponse>
+    fun signIn(@Header("email") email: String?, @Header("code") code:String) : Call<SignInResponse>
 }

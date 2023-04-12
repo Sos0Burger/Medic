@@ -55,7 +55,7 @@ fun OnboardScreen(onNavigateToRegistration: () -> Unit) {
                     text = if (pagerState.currentPage == 2) "Завершить" else "Пропустить",
                     fontSize = 20.sp,
                     fontFamily = lato,
-                    color = skipButtonColor,
+                    color = SkipButtonColor,
                     fontWeight = FontWeight(600)
                 )
             }
@@ -123,7 +123,6 @@ fun BottomContent(greenText: String, grayText: String, dotPosition: Int, illustr
             fontFamily = SFPD,
             textAlign = TextAlign.Center,
             fontWeight = FontWeight(400)
-
         )
         Row(
             horizontalArrangement = Arrangement.SpaceBetween,

@@ -9,7 +9,9 @@ import androidx.compose.ui.unit.sp
 import com.example.medic.R
 
 val lato = FontFamily(Font(R.font.lato))
-val SFPD = FontFamily(Font(R.font.sf_pd))
+val SFPD = FontFamily(Font(R.font.sf_pro_display))
+val SFPDSB = FontFamily(Font(R.font.sf_pro_display_semibold))
+val SFPDH = FontFamily(Font(R.font.sf_pro_display_heavy))
 
 // Set of Material typography styles to start with
 val Typography = Typography(

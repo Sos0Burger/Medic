@@ -12,7 +12,7 @@ class UserApiImpl: UserApi {
         return userApi.sendCode(email)
     }
 
-    override fun signIn(email: String, code: String): Call<SignInResponse> {
+    override fun signIn(email: String?, code: String): Call<SignInResponse> {
         return userApi.signIn(email, code)
     }
 }

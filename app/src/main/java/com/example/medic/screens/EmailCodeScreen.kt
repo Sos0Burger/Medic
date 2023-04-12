@@ -1,5 +1,6 @@
 package com.example.medic.screens
 
+import android.util.Log
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
@@ -18,10 +19,7 @@ import androidx.compose.ui.unit.sp
 import com.example.medic.api.response.SignInResponse
 import com.example.medic.api.userApi.UserApiImpl
 import com.example.medic.data.User
-import com.example.medic.ui.theme.ArrowColor
-import com.example.medic.ui.theme.MedicTheme
-import com.example.medic.ui.theme.PasswordButtonColor
-import com.example.medic.ui.theme.SFPD
+import com.example.medic.ui.theme.*
 import retrofit2.Call
 import retrofit2.Response
 
@@ -64,7 +62,7 @@ fun EmailCodeScreen(onNavigateToRegistration: ()-> Unit, onNavigateToPassword: (
                 text = "Введите код из E-mail",
                 fontWeight = FontWeight(600),
                 fontSize = 17.sp,
-                fontFamily = SFPD
+                fontFamily = SFPDSB
             )
             Row(
                 horizontalArrangement = Arrangement.SpaceEvenly,
@@ -91,11 +89,16 @@ fun EmailCodeScreen(onNavigateToRegistration: ()-> Unit, onNavigateToPassword: (
                                     ) {
                                         if(response.code()==200){
                                             User.token = response.body()?.token
+                                            Log.d("token", User.token.toString())
+                                            with(User.sharedPrefs.edit()) {
+                                                putString("token", User.token)
+                                                apply()
+                                            }
                                             onNavigateToPassword()
                                         }
                                         if(response.code()==422){
                                             title.value = "Ошибка 422"
-                                            text.value = response.message().toString()
+                                            text.value = response.errorBody().toString()
                                             openDialog.value = true
                                         }
                                     }

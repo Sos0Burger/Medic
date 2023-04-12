@@ -10,10 +10,11 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val skipButtonColor = Color(0xFF57A9FF)
+val SkipButtonColor = Color(0xFF57A9FF)
 val GreenTextColor = Color(0xFF00B712)
 val GrayTextColor = Color(0xFF939396)
 val PasswordButtonColor = Color(0xFFF5F5F9)
+val CreateButtonColor = Color(0xFF1A6FEE)
 
 val LightBlue = Color(0xFF84C9E7)
 val Blue = Color(0xFF2958F2)

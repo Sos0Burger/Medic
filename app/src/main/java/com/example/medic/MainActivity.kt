@@ -1,5 +1,6 @@
 package com.example.medic
 
+import android.content.Context
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
@@ -19,6 +20,11 @@ import com.example.medic.ui.theme.MedicTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        User.sharedPrefs = getSharedPreferences("pref", Context.MODE_PRIVATE)
+        User.email = User.sharedPrefs.getString("email", "")
+        User.password = User.sharedPrefs.getString("password", "")
+        User.token = User.sharedPrefs.getString("token", "")
+        User.isCardCreated = User.sharedPrefs.getBoolean("isCardCreated", false)
         setContent {
             MedicTheme {
                 // A surface container using the 'background' color from the theme
@@ -37,7 +43,16 @@ class MainActivity : ComponentActivity() {
 fun Screen() {
     val navController = rememberNavController()
     NavHost(navController = navController, startDestination = "Gradient") {
-        composable("Gradient") { GradientScreen(onNavigateToOnboard = { navController.navigate("Onboard") }) }
+        composable("Gradient") {
+            if (User.token == "") GradientScreen(onNavigateToOnboard = {
+                navController.navigate(
+                    "Onboard"
+                )
+            })
+            else if(User.password=="") navController.navigate("Password")
+            else if (User.isCardCreated == false) navController.navigate("PatientCard")
+            else navController.navigate("Main")
+        }
         composable("Onboard") {
             OnboardScreen(onNavigateToRegistration = {
                 navController.navigate(
@@ -59,7 +74,9 @@ fun Screen() {
                 )
             }, onNavigateToPassword = { navController.navigate("Password") })
         }
-        composable("Password"){ PasswordScreen()}
+        composable("Password") { PasswordScreen(onNavigateToMain = { navController.navigate("Main") }, onNavigateToPatientCard = {navController.navigate("PatientCard")}) }
+        composable("PatientCard") { PatientCardScreen(onNavigateToMain = { navController.navigate("Main") }) }
+        composable("Main") { MainScreen() }
     }
 
 }

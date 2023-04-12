@@ -4,4 +4,7 @@
     <string name="notification_gray_text">Вы быстро узнаете о результатах</string>
     <string name="monitoring_gray_text">Наши врачи всегда наблюдают
         за вашими показателями здоровья</string>
+    <string name="patient_card_gray_text_1">Без карты пациента вы не сможете заказать анализы.</string>
+    <string name="patient_card_gray_text_2">В картах пациентов будут храниться результаты
+        анализов вас и ваших близких.</string>
 </resources>

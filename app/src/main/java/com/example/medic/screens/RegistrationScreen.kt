@@ -1,6 +1,7 @@
 package com.example.medic.screens
 
 import android.util.Log
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
@@ -10,8 +11,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
 import com.example.medic.AlertUI
 import com.example.medic.R
@@ -20,6 +23,7 @@ import com.example.medic.api.userApi.UserApiImpl
 import com.example.medic.data.User
 import com.example.medic.ui.theme.BlueMid
 import com.example.medic.ui.theme.BorderColor
+import com.example.medic.ui.theme.SFPDSB
 import com.example.medic.ui.theme.SecondaryTextColor
 import retrofit2.Call
 import retrofit2.Response
@@ -32,11 +36,11 @@ fun RegistrationScreen(onNavigateToEmailCode: () -> Unit) {
     val title = remember { mutableStateOf("") }
     val text = remember { mutableStateOf("") }
 
-    if (openDialog.value){
+    if (openDialog.value) {
         Dialog(onDismissRequest = { openDialog.value = false }) {
             AlertUI(title = title.value, text = text.value)
         }
-}
+    }
 
     Column() {
         Column(
@@ -79,7 +83,8 @@ fun RegistrationScreen(onNavigateToEmailCode: () -> Unit) {
                 }, modifier = Modifier
                     .fillMaxWidth()
                     .height(65.dp)
-                    .border(1.dp, color = BorderColor, shape = MaterialTheme.shapes.medium)
+                    .border(1.dp, color = BorderColor, shape = MaterialTheme.shapes.medium),
+                singleLine = true
             )
             Spacer(modifier = Modifier.size(32.dp))
             Button(
@@ -87,22 +92,23 @@ fun RegistrationScreen(onNavigateToEmailCode: () -> Unit) {
                     if (email.matches(Regex("[A-z0-9]+@[a-z]+\\.[a-z]+"))) {
                         val userApiImpl = UserApiImpl()
                         val response = userApiImpl.sendCode(email)
-                        response.enqueue(object: retrofit2.Callback<SendCodeResponse>{
+                        response.enqueue(object : retrofit2.Callback<SendCodeResponse> {
                             override fun onResponse(
                                 call: Call<SendCodeResponse>,
                                 response: Response<SendCodeResponse>
                             ) {
-                                if(response.code()==200){
+                                if (response.code() == 200) {
                                     User.email = email
+                                    with(User.sharedPrefs.edit()) {
+                                        putString("email", User.email)
+                                        apply()
+                                    }
                                     onNavigateToEmailCode()
                                 }
-                                if(response.code()==422){
+                                if (response.code() == 422) {
                                     title.value = "Ошибка 422"
                                     text.value = response.message().toString()
                                     openDialog.value = true
-                                }
-                                else{
-                                    Log.d("Error", response.code().toString()+response.message())
                                 }
                             }
 
@@ -123,26 +129,32 @@ fun RegistrationScreen(onNavigateToEmailCode: () -> Unit) {
                     .height(56.dp),
                 colors = ButtonDefaults.buttonColors(containerColor = BlueMid)
             ) {
-                Text(text = "Далее", color = Color.White)
+                Text(
+                    text = "Далее",
+                    color = Color.White,
+                    fontFamily = SFPDSB,
+                    fontWeight = FontWeight(600),
+                    fontSize = 17.sp
+                )
             }
         }
         Spacer(modifier = Modifier.size(100.dp))
         Column(
             horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Bottom,
-            modifier = Modifier.padding(bottom = 56.dp, start = 20.dp, end = 20.dp)
+            verticalArrangement = Arrangement.Bottom
         ) {
             Text(text = "Или войдите с помощью", color = SecondaryTextColor)
             Spacer(modifier = Modifier.size(16.dp))
-            Button(
+            OutlinedButton(
                 onClick = { },
                 shape = MaterialTheme.shapes.medium,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(60.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = Color.White)
+                    .height(60.dp)
+                    .padding(start = 20.dp, end = 20.dp),
+                border = BorderStroke(1.dp, BorderColor)
             ) {
-                Text(text = "Bойдите с Яндекс", color = Color.Black)
+                Text(text = "Bойти с Яндекс", color = Color.Black)
             }
         }
     }
