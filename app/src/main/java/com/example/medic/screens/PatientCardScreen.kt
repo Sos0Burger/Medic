@@ -150,11 +150,6 @@ fun PatientCardScreen(onNavigateToMain: () -> Unit) {
                             text.value = response.message()
                             openDialog.value = true
                         }
-                        else{
-                            title.value="Ошибка"
-                            text.value=response.message()
-                            openDialog.value = true
-                        }
                     }
                     override fun onFailure(call: Call<CreateProfileResponse>, t: Throwable) {
                         title.value = "Ошибка"
